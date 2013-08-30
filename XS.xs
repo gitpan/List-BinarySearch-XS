@@ -2,12 +2,17 @@
 #include "EXTERN.h"
 #include "perl.h"
 #include "XSUB.h"
-
-#include "ppport.h"
+#include "multicall.h"
+/* Commented out:
+ * #include "ppport.h"
+ * as it caused a problem with the cxinc symbol.  May need to reinstate it
+ * and find another solution, though.
+ */
 
 /* Returns index of found element, or undef if none found. */
 
 SV* binsearch( SV* block, SV* needle, SV* aref_haystack ) {
+  dTHX;
   dSP;
   dMULTICALL;
   GV *gv;
@@ -71,6 +76,7 @@ SV* binsearch( SV* block, SV* needle, SV* aref_haystack ) {
 /* Returns index of found element, or index of insert point if none found. */
 
 SV* binsearch_pos( SV* block, SV* needle, SV* aref_haystack ) {
+  dTHX;
   dSP;
   dMULTICALL;
   GV *gv;
